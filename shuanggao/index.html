@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>excel模版配置</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style type="text/css">
+        .content {
+            padding: 20px 0;
+        }
+
+        .input-label {
+            width: 100px;
+            text-align: left;
+        }
+
+        .label {
+            display: inline-block;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .label .fa {
+            margin: auto 5px;
+        }
+
+        .label .fa:hover {
+            color: #f99;
+            cursor: pointer;
+        }
+
+
+        .well {
+            padding: 10px;
+        }
+
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left,
+        .header-right {
+            display: inline-block;
+        }
+
+        .table>tbody>tr>td,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>td,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>thead>tr>th {
+            vertical-align: middle;
+        }
+
+        #dataModal .modal-dialog {
+            width: 80%;
+            max-width: 800px;
+        }
+
+        #dataModal .textarea-data {
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="container-fluid" v-cloak>
+        <div class="error text-center" v-if="!hasLocalStorage">
+            <h1>技术上不支持您的浏览器，请您升级或更换浏览器！</h1>
+        </div>
+        <div class="content" v-if="hasLocalStorage">
+            <div class="row">
+                <div class="col-xs-8 content-left">
+                    <div class="panel panel-info">
+                        <div class="panel-heading header">
+                            <span class="panel-title header-left">主信息</span>
+                            <div class="text-right header-right">
+                                <button class="btn btn-info" v-on:click="createData">生成数据</button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <label>文件路径:</label>
+                                        <input class="form-control" v-model="filePath" placeholder="必填，举个栗子：E:\双高数据">
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <label>文件过滤规则:</label>
+                                        <div>
+                                            <div class="input-group">
+                                                <input class="form-control" v-model="fileRegExp" placeholder="非必填，举个栗子：无效">
+                                                <span class="input-group-btn"><button class="btn btn-primary" v-on:click="addFileRegExp">添加</button></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <small class="text-danger"><strong>注：</strong>【文件过滤规则】如需要不导入某些文件，则可在这里填写过滤规则</small>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="well" v-if="fileRegExps && fileRegExps.length > 0">
+                                        <span class="label label-primary" v-for="(regExp,index) in fileRegExps">{{regExp}}<span class="fa fa-times" v-on:click="removeFileRegExp(index)"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading header">
+                            <span class="panel-title header-left">模版信息</span>
+                            <div class="header-right">当前共有&nbsp;<span class="text-danger">{{templates && templates.length}}</span>&nbsp;个模版</div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-xs-1 text-center">序号</th>
+                                            <th class="col-xs-2 text-center">模版名称</th>
+                                            <th class="col-xs-2 text-center">文件路径</th>
+                                            <th class="col-xs-2 text-center">sheet开始页</th>
+                                            <th class="col-xs-2 text-center">sheet结束页</th>
+                                            <th class="col-xs-3 text-center">sheet信息</th>
+                                            <th class="col-xs-3 text-center">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-if="templates && templates.length > 0">
+                                        <tr v-for="(template, index) in templates">
+                                            <td class="col-xs-1 text-center">#{{index+1}}</td>
+                                            <td class="col-xs-2 text-center">{{template.module}}</td>
+                                            <td class="col-xs-2 text-center">{{template.filePath}}</td>
+                                            <td class="col-xs-2 text-center">{{template.sheetStart}}</td>
+                                            <td class="col-xs-2 text-center">{{template.sheetEnd}}</td>
+                                            <td class="col-xs-3 text-center">{{template.sheetConfigText}}</td>
+                                            <td class="col-xs-3 text-center">
+                                                <button class="btn btn-danger" v-on:click="removeTemplate(index)">删除</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4 content-right">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="panel-title">模版信息</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <label>模版名称:</label>
+                                        <input class="form-control" v-model="template.module" placeholder="必填，举个栗子：异地聘用-工资">
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <label>文件路径:</label>
+                                        <input class="form-control" v-model="template.filePath" placeholder="必填，举个栗子：异地聘用\工资">
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <label>sheet开始页:</label>
+                                        <input class="form-control" v-model="template.sheetStart" placeholder="非必填，默认为0，举个栗子：1">
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <label>sheet结束页:</label>
+                                        <input class="form-control" v-model="template.sheetEnd" placeholder="非必填，举个例子：-1，表示只读到倒数第1页">
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <small class="text-danger"><strong>注：</strong>【sheet结束页】大于1则是指定页，为空或为0则是最后一页，小于0则是倒数多少页</small>
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <label>sheet过滤规则:</label>
+                                        <div>
+                                            <div class="input-group">
+                                                <input class="form-control" v-model="sheetRegExp" placeholder="非必填，举个栗子：工资单">
+                                                <span class="input-group-btn"><button class="btn btn-primary" v-on:click="addSheetRegExp">添加</button></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <small class="text-danger"><strong>注：</strong>【sheet过滤规则】如需要跳过某些sheet页，则可在这里填写过滤规则</small>
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="well" v-if="template.sheetRegExps && template.sheetRegExps.length > 0">
+                                        <span class="label label-primary" v-for="(regExp,index) in template.sheetRegExps">{{regExp}}<span class="fa fa-times" v-on:click="removeSheetRegExp(index)"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="panel-title">sheet信息</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class=" col-xs-6">
+                                    <div class="form-group">
+                                        <label>标题开始行:</label>
+                                        <input class="form-control" v-model="sheetConfig.titleStart" placeholder="必填，举个栗子：1">
+                                    </div>
+                                </div>
+                                <div class=" col-xs-6">
+                                    <div class="form-group">
+                                        <label>标题结束行:</label>
+                                        <input class="form-control" v-model="sheetConfig.titleEnd" placeholder="必填，举个栗子：2">
+                                    </div>
+                                </div>
+                                <div class=" col-xs-6">
+                                    <div class="form-group">
+                                        <label>内容开始行:</label>
+                                        <input class="form-control" v-model="sheetConfig.contentStart" placeholder="必填，举个栗子：3">
+                                    </div>
+                                </div>
+                                <div class=" col-xs-6">
+                                    <div class="form-group">
+                                        <label>内容结束行:</label>
+                                        <input class="form-control" v-model="sheetConfig.contentEnd" placeholder="非必填，举个例子：-1">
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group">
+                                        <small class="text-danger"><strong>注：</strong>【内容结束行】大于1则是指定行，为空或为0则是最后一行，小于0则是倒数多少行</small>
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="form-group text-center">
+                                        <button class="btn btn-primary btn-block" v-on:click="addSheetConfig">添加</button>
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12">
+                                    <div class="well" v-if="template.sheetConfigs && template.sheetConfigs.length > 0">
+                                        <span class="label label-primary" v-for="(config,index) in template.sheetConfigs">{{config.text}}<span class="fa fa-times" v-on:click="removeSheetConfig(index)"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group text-center">
+                                <button class="btn btn-info btn-block" v-on:click="saveTemplate">保存模版</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="dataModalLabel">保存数据</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class=" col-xs-12">
+                                <div class="form-group">
+                                    <small class="text-danger"><strong>提示：</strong>复制内容保存为文本文件即可</small>
+                                </div>
+                            </div>
+                            <div class=" col-xs-12">
+                                <div class="form-group">
+                                    <textarea class="form-control textarea-data" v-model="dataTextarea"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                hasLocalStorage: true,
+
+                filePath: null,
+                fileRegExps: [],
+                templates: [],
+
+                template: {
+                    module: null,
+                    filePath: null,
+                    sheetStart: null,
+                    sheetEnd: null,
+                    sheetRegExps: [],
+                    sheetConfigs: []
+                },
+                fileRegExp: null,
+                sheetRegExp: null,
+                sheetConfig: {
+                    titleStart: null,
+                    titleEnd: null,
+                    contentStart: null,
+                    contentEnd: null
+                },
+                dataTextarea: null
+            },
+            methods: {
+                addFileRegExp: function () {
+                    var regExps = this.fileRegExps;
+                    Vue.set(regExps, regExps.length, '(' + this.fileRegExp + ')');
+                    this.fileRegExp = null;
+                },
+                removeFileRegExp: function (index) {
+                    var regExps = this.fileRegExps;
+                    Vue.delete(regExps, index);
+                },
+                addSheetRegExp: function () {
+                    var regExp = this.sheetRegExp;
+                    if (!regExp) {
+                        return;
+                    }
+                    var regExps = this.template.sheetRegExps;
+                    Vue.set(regExps, regExps.length, '(' + regExp + ')');
+                    this.sheetRegExp = null;
+                },
+                removeSheetRegExp: function (index) {
+                    var regExps = this.template.sheetRegExps;
+                    Vue.delete(regExps, index);
+                },
+                addSheetConfig: function () {
+                    var configs = this.template.sheetConfigs;
+                    var config = this.sheetConfig;
+                    var newConfig = {};
+                    var arr = [];
+                    for (key in config) {
+                        var value = config[key] || 0;
+                        arr.push(value);
+                        newConfig[key] = value;
+                        config[key] = null;
+                    }
+                    newConfig.text = arr.join();
+                    Vue.set(configs, configs.length, newConfig);
+                },
+                removeSheetConfig: function (index) {
+                    var configs = this.template.sheetConfigs;
+                    Vue.delete(configs, index);
+                },
+
+                saveTemplate: function () {
+                    var templates = this.templates;
+                    var newTemplate = JSON.parse(JSON.stringify(this.template));
+
+                    var arr = newTemplate.sheetConfigs.map(function (config) {
+                        return config.text;
+                    });
+                    newTemplate.sheetConfigText = '[' + arr.join('] [') + ']';
+                    Vue.set(templates, templates.length, newTemplate);
+
+                    this.template = {
+                        module: null,
+                        filePath: null,
+                        sheetStart: null,
+                        sheetEnd: null,
+                        sheetRegExps: [],
+                        sheetConfigs: []
+                    };
+
+                    this.updateStorage();
+                },
+                removeTemplate: function (index) {
+                    var templates = this.templates;
+                    Vue.delete(templates, index);
+                    this.updateStorage();
+                },
+                updateStorage: function () {
+                    localStorage.removeItem('shuanggaoData');
+                    localStorage.setItem('shuanggaoData', JSON.stringify(this.$data));
+                },
+                createData: function () {
+                    $('#dataModal').modal('show');
+                    var data = localStorage.getItem('shuanggaoData');
+                    if (!data) {
+                        return;
+                    }
+                    this.dataTextarea = data;
+                }
+            }, mounted: function () {
+                this.$nextTick(function () {
+                    if (!window.localStorage) {
+                        this.hasLocalStorage = false;
+                    }
+                    var data = localStorage.getItem('shuanggaoData');
+                    if (!data) {
+                        return;
+                    }
+                    data = JSON.parse(data);
+                    Vue.set(this.$data, 'filePath', data.filePath);
+                    Vue.set(this.$data, 'fileRegExps', data.fileRegExps);
+                    Vue.set(this.$data, 'templates', data.templates);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
