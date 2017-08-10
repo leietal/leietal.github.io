@@ -414,7 +414,13 @@
                     if (!data) {
                         return;
                     }
-                    this.dataTextarea = data;
+                    data = JSON.parse(data);
+                    var textData = {
+                        filePath: data.filePath,
+                        fileRegExps: data.fileRegExps,
+                        templates: data.templates
+                    };
+                    this.dataTextarea = JSON.stringify(textData);
                 }
             }, mounted: function () {
                 this.$nextTick(function () {
