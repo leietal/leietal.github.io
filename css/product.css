@@ -1,0 +1,330 @@
+/************************ 薪付通服务 start ************************/
+
+.xft-section {
+  width: 100%;
+  background-color: #fff;
+}
+
+.xft-container {
+  width: 1200px;
+  margin: auto;
+  position: relative;
+}
+
+.xft-nav {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  font-size: 16px;
+  background-color: #b4a88a;
+  color: #fff;
+  z-index: 0;
+}
+
+.xft-nav .nav-wrap {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  z-index: 3;
+  margin: auto 20px;
+}
+
+.xft-nav .nav-item {
+  height: 100%;
+  padding: 22px 40px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.xft-nav .nav-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0px;
+  background-color: #d7000f;
+  z-index: 1;
+}
+
+.xft-content {
+  height: 400px;
+  padding: 10px 20px;
+}
+
+.xft-content .tab {
+  display: none;
+}
+
+.xft-content .tab .title {
+  font-size: 18px;
+  color: #D0C19C;
+}
+
+.xft-content .tab .desc {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #59554C;
+}
+
+.xft-content .tab1-wrap {
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: wrap;
+  padding: 40px 0;
+}
+
+.xft-content .tab1-item {
+  width: 35%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: 40px auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.xft-content .tab1-item .icon {
+  margin-right: 34px;
+}
+
+.xft-content .tab2-title {
+  text-align: center;
+  color: #D0C19C;
+  font-size: 16px;
+  padding: 48px 0;
+}
+
+.xft-content .tab2-wrap {
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+.xft-content .tab2-item {
+  width: 30%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.xft-content .tab2-item .text {
+  margin-top: 44px;
+  text-align: center;
+}
+
+.xft-content .tab3-wrap {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  margin-top: 44px;
+}
+
+.xft-content .tab3-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.xft-content .tab3 .tab3-right {
+  margin-left: 223px;
+  padding: 35px 0;
+}
+
+.xft-content .tab3-right .text {
+  width: 260px;
+}
+
+.xft-content .tab4-wrap {
+  text-align: center;
+  margin-top: 71px;
+  height: 100%;
+}
+
+/************************ 薪付通服务 end ************************/
+
+/************************ 发票通服务 start ************************/
+
+#fpt {
+  margin-top: 0;
+}
+
+.fpt-section {
+  background-color: #f5f4f3;
+}
+
+.fpt-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 36px 0;
+}
+
+.fpt-item {
+  width: 243px;
+  margin: 30px;
+  padding: 20px 40px;
+  text-align: center;
+  background-color: #fff;
+  border-top: 6px solid #d7000f;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 2px 0px 10px 0px #eae8e4;
+}
+
+.fpt-item .icon-01 {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  background: url('../icon.png') no-repeat center center;
+}
+
+.fpt-item .title {
+  padding: 20px 0;
+  font-size: 16px;
+  color: #d0c19c;
+}
+
+.fpt-item .title-center {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 15px;
+  background-color: #d0c19c;
+  margin: auto 6px;
+  color: #fff;
+}
+
+.fpt-item .line {
+  margin: 10px auto 30px;
+  height: 4px;
+  width: 144px;
+  background: url('../images/icon_wave.png') center center no-repeat;
+}
+
+.fpt-item .desc {
+  text-align: left;
+  line-height: 30px;
+  font-size: 12px;
+  color: #4c4a44;
+}
+
+/************************ 发票通服务 end ************************/
+
+/************************ 报税通服务 start ************************/
+
+.bst-section {
+  background-color: #fff;
+}
+
+.bst-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bst-left {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-right: 107px;
+}
+
+.bst-right {
+  width: 400px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.bst-right .title {
+  font-size: 14px;
+  color: #59554c;
+  line-height: 24px;
+  margin: 36px auto;
+}
+
+.bst-right .desc {
+  font-size: 12px;
+  color: #59554c;
+  line-height: 24px;
+}
+
+/************************ 报税通服务 end ************************/
+
+/************************ 凭证通服务 start ************************/
+
+.pzt-section {
+  background-color: #f5f4f3;
+}
+
+.pzt-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 48px 0;
+}
+
+.pzt-item {
+  width: 126px;
+  padding: 30px 0;
+  text-align: center;
+}
+
+.pzt-item .icon {
+  display: inline-block;
+  width: 68px;
+  height: 68px;
+  margin: 10px auto;
+  background: no-repeat center center;
+}
+
+.pzt-item .icon_pzt_01 {
+  background-image: url('../images/icon_pzt_01.jpg');
+}
+
+.pzt-item .icon_pzt_02 {
+  background-image: url('../images/icon_pzt_02.jpg');
+}
+
+.pzt-item .icon_pzt_03 {
+  background-image: url('../images/icon_pzt_03.jpg');
+}
+
+.pzt-item .icon_pzt_04 {
+  background-image: url('../images/icon_pzt_04.jpg');
+}
+
+.pzt-item .icon_pzt_05 {
+  background-image: url('../images/icon_pzt_05.jpg');
+}
+
+.pzt-item .icon_pzt_06 {
+  background-image: url('../images/icon_pzt_06.jpg');
+}
+
+.pzt-item .title {
+  padding: 20px 0;
+  font-size: 14px;
+  color: #d0c19c;
+}
+
+.pzt-item .desc {
+  text-align: left;
+  line-height: 24px;
+  font-size: 12px;
+  color: #59554c;
+}
+
+/************************ 凭证通服务 end ************************/

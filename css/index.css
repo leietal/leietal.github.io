@@ -1,0 +1,278 @@
+
+/************************ 服务产品 start ************************/
+
+.product-section .container {
+  max-width: 1200px;
+  min-width: 1000px;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: nowrap;
+}
+
+.service-item {
+  width: 228px;
+  border-radius: 4px;
+  background: #d0c19c center center;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: url('../images/icon_product_bg.png');
+}
+
+.service-item:hover {
+  background-color: #c9202b;
+  background-image: none;
+  cursor: default;
+}
+
+.service-item .item-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.service-item .title {
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 30px;
+  padding: 30px 0;
+  position: relative;
+}
+
+.service-item .title::after {
+  content: "";
+  border-bottom: 1px solid rgba(255, 255, 255, .3);
+  width: 30px;
+  position: absolute;
+  left: 50%;
+  bottom: 15px;
+  margin-left: -15px;
+}
+
+.service-item .desc {
+  display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: left;
+  margin: auto 37px;
+}
+
+.service-item .item-footer {
+  position: relative;
+  margin-top: 50px;
+  height: 100px;
+}
+
+.item-footer .icon-wrap {
+  position: relative;
+  height: 100%;
+  top: 0px;
+  background-color: #f5f4f3;
+  border-radius: 0 0 4px 4px;
+  transition: all 0.5s ease-in-out;
+}
+
+.service-item:hover .icon-wrap {
+  top: 100%;
+}
+
+.item-footer .icon {
+  position: absolute;
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+  border-radius: 35px;
+  background-color: #fff;
+  top: -35px;
+  left: 50%;
+  margin-left: -35px;
+  transition: all 0.5s ease-in-out;
+  background: center center no-repeat;
+}
+
+.service-item:hover .icon {
+  top: -90px;
+}
+
+.item-footer .icon::after {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  border-radius: 40px;
+  background-color: rgba(255, 255, 255, .3);
+  top: -5px;
+  left: 50%;
+  margin-left: -40px;
+}
+
+.item-footer .icon.icon-wyzf {
+  background-image: url('../images/icon_wyzf.png');
+}
+
+.item-footer .icon.icon-zxfp {
+  background-image: url('../images/icon_zxfp.png');
+}
+
+.item-footer .icon.icon-yjbs {
+  background-image: url('../images/icon_yjbs.png');
+}
+
+.item-footer .icon.icon-zdpz {
+  background-image: url('../images/icon_zdpz.png');
+}
+
+.service-item:hover .icon.icon-wyzf {
+  background-image: url('../images/icon_wyzf_red.png');
+}
+
+.service-item:hover .icon.icon-zxfp {
+  background-image: url('../images/icon_zxfp_red.png');
+}
+
+.service-item:hover .icon.icon-yjbs {
+  background-image: url('../images/icon_yjbs_red.png');
+}
+
+.service-item:hover .icon.icon-zdpz {
+  background-image: url('../images/icon_zdpz_red.png');
+}
+
+.item-footer .spot {
+  height: 8px;
+  width: 8px;
+  border-radius: 4px;
+  background-color: #dededd;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: 15px;
+  margin-left: -4px;
+}
+
+.item-footer .spot::before {
+  content: "";
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border-radius: 4px;
+  background-color: #dededd;
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+}
+
+.item-footer .spot::after {
+  content: "";
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border-radius: 4px;
+  background-color: #dededd;
+  position: absolute;
+  left: 0;
+  margin-left: 20px;
+}
+
+/************************ 服务产品 end ************************/
+
+/************************ 方案 start ************************/
+
+.plan-section .plan-container {
+  width: 1000px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  border-radius: 4px;
+  box-shadow: 0 0 12px 4px #eee;
+}
+
+.plan-item {
+  width: 100%;
+  border-radius: 4px;
+  color: #705d5e;
+  text-align: center;
+  position: relative;
+  padding: 40px 10px 150px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plan-item .icon {
+  display: inline-block;
+  height: 115px;
+  width: 115px;
+  border-radius: 60px;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+  margin: 60px auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+  background: center center no-repeat;
+}
+
+.plan-item .title {
+  font-size: 18px;
+  line-height: 40px;
+  padding: 30px 0;
+  color: #ec6d69;
+  padding: 0 40px;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.plan-item .desc {
+  font-size: 14px;
+  line-height: 30px;
+  text-align: left;
+  padding: 40px 63px 0 63px;
+  height: 100%;
+  color: #705d5e;
+}
+
+.plan-item:first-child .desc {
+  border-right: 2px solid #f5f4f3;
+  box-sizing: content-box;
+}
+
+.plan-item:last-child .desc {
+  border-left: 2px solid #f5f4f3;
+  box-sizing: content-box;
+}
+
+.plan-item .icon-df {
+  background: url('../images/icon_plan_df.jpg');
+}
+
+.plan-item .icon-ps {
+  background: url('../images/icon_plan_ps.jpg');
+}
+
+.plan-item .icon-zh {
+  background: url('../images/icon_plan_zh.jpg');
+}
+
+.plan-bg {
+  background: url('../images/icon_plan_bg.jpg') bottom center no-repeat;
+}
+
+.plan-section .contact.contact-container {
+  margin-top: 80px;
+}
+
+/************************ 方案 end ************************/
