@@ -1,22 +1,12 @@
 $(document).scroll(function() {
   var mh = $("main").offset().top;
   var dh = $(this).scrollTop();
-  if (dh >= 400) {
+  if (dh >= 200) {
     $('#nav').addClass('nav-container-white');
   } else {
     $('#nav').removeClass('nav-container-white');
   }
 });
-
-window.onresize = function() {
-  tm = setTimeout(function() {
-    clearTimeout(tm);
-    var scrollLeft = parseInt(document.body.offsetWidth * index);
-    $BW.scrollLeft(scrollLeft);
-  }, 300);
-};
-
-
 
 // banner所在的索引
 var index = -1;
@@ -30,7 +20,7 @@ var $SPOT = $('.spot');
 var SPOT_ACTIVE = 'spot-active';
 
 // 滚动方法
-var scrollFun = function() {
+var scrollFun = function(isInit) {
   var prev = index;
   // 重新定位索引
   index++;
@@ -51,13 +41,20 @@ var scrollFun = function() {
     });
   }
 
-  // 将右边的banner滚入至当前
-  $BANNER.eq(index).stop().animate({
-    left: '0'
-  });
+  if (isInit) {
+    // 将右边的banner滚入至当前
+    $BANNER.eq(index).css({
+      left: '0'
+    });
+  } else {
+    // 将右边的banner滚入至当前
+    $BANNER.eq(index).stop().animate({
+      left: '0'
+    });
+  }
 };
 
 // 定时任务
 setInterval(scrollFun, 5000);
 // 初始化
-scrollFun();
+scrollFun(true);

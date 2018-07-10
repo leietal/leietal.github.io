@@ -175,12 +175,28 @@
 .fpt-item {
   width: 243px;
   margin: 30px;
-  padding: 20px 40px;
+  padding: 20px;
   text-align: center;
   background-color: #fff;
   border-top: 6px solid #d7000f;
   border-radius: 0 0 4px 4px;
   box-shadow: 2px 0px 10px 0px #eae8e4;
+}
+
+.fpt-item:nth-child(1) .desc {
+  padding: 0 20px;
+}
+
+.fpt-item:nth-child(2) .desc {
+  padding: 0 16px;
+}
+
+.fpt-item:nth-child(3) .desc {
+  padding: 0 10px;
+}
+
+.fpt-item:nth-child(4) .desc {
+  padding: 0 16px;
 }
 
 .fpt-item .icon-01 {

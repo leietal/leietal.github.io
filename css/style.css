@@ -14,6 +14,7 @@ a {
 html, body {
   height: 100%;
   font-size: 13px;
+  font-family: "微软雅黑";
 }
 
 header {
@@ -347,17 +348,17 @@ header .nav-container.nav-container-white {
   left: 100%;
 }
 
-.banner:nth-child(1) {
+.banner1 {
   background-color: #c9202b;
   background-image: url('../images/banner_1.png');
 }
 
-.banner:nth-child(2) {
+.banner2 {
   background-color: #f4bc6c;
   background-image: url('../images/banner_2.png');
 }
 
-.banner:nth-child(3) {
+.banner3 {
   background-color: #f4bc6c;
   background-image: url('../images/banner_3.png');
 }
